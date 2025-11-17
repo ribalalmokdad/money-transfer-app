@@ -1,0 +1,69 @@
+# ----------------------------------------------------------------------
+# 1. Monorepo Structure: Ignore node_modules and vendors at the root
+#    (These should be tracked inside their respective sub-directories,
+#     but we include them here just in case.)
+# ----------------------------------------------------------------------
+/node_modules
+/vendor
+
+# ----------------------------------------------------------------------
+# 2. General Ignored Files (Applies to both)
+# ----------------------------------------------------------------------
+# OS generated files
+.DS_Store
+.env
+.env.testing
+npm-debug.log
+yarn-error.log
+package-lock.json
+yarn.lock
+
+# Log and data files
+*.log
+*.sqlite
+.idea/             # PHPStorm/IntelliJ IDEA
+.vscode/           # Visual Studio Code settings (can be kept if shared)
+.history/          # VS Code history
+/*.code-workspace  # VS Code Workspace file
+
+# ----------------------------------------------------------------------
+# 3. Laravel/PHP Backend Specific (Located in /backend)
+# ----------------------------------------------------------------------
+/backend/vendor
+/backend/node_modules
+/backend/public/storage
+/backend/public/hot
+/backend/storage/*.key
+/backend/bootstrap/cache/*.php
+
+# Files created by the local Laravel environment
+/backend/.env
+/backend/.phpunit.result.cache
+/backend/public/build
+/backend/vendor/
+
+# ----------------------------------------------------------------------
+# 4. React Native/JavaScript Frontend Specific (Located in /mobile)
+# ----------------------------------------------------------------------
+# Node dependencies
+/mobile/node_modules
+
+# iOS and Android build files
+/mobile/ios/build
+/mobile/android/build
+/mobile/android/.gradle
+/mobile/android/app/build
+/mobile/android/.idea
+/mobile/ios/Pods
+/mobile/ios/.xcode.env.local
+
+# Generated files
+/mobile/coverage
+/mobile/dist
+/mobile/.expo
+/mobile/.idea
+
+# Temp files
+*.bak
+*.swp
+*.orig
