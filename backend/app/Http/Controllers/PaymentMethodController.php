@@ -7,9 +7,7 @@ use Illuminate\Http\Request;
 
 class PaymentMethodController extends Controller
 {
-    /**
-     * Add a new external payment method
-     */
+
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -20,7 +18,7 @@ class PaymentMethodController extends Controller
         $paymentMethod = PaymentMethod::create([
             'tokenized_id' => $validated['tokenized_id'],
             'method_type'  => $validated['method_type'],
-            'user_id'      => auth()->id(),   // IMPORTANT
+            'user_id'      => auth()->id(),
         ]);
 
         return response()->json([
@@ -30,18 +28,15 @@ class PaymentMethodController extends Controller
     }
     public function update(Request $request, $id)
 {
-    // Find payment method
     $paymentMethod = PaymentMethod::where('id', $id)
-        ->where('user_id', auth()->id()) // security check: user can edit only his payment methods
+        ->where('user_id', auth()->id()) 
         ->firstOrFail();
 
-    // Validate input
     $validated = $request->validate([
         'tokenized_id' => 'sometimes|string|unique:payment_methods,tokenized_id,' . $paymentMethod->id,
         'method_type'  => 'sometimes|string',
     ]);
 
-    // Update payment method
     $paymentMethod->update($validated);
 
     return response()->json([
@@ -51,18 +46,14 @@ class PaymentMethodController extends Controller
 }
 public function destroy($id)
 {
-    // Find the payment method belonging to the authenticated user
     $paymentMethod = PaymentMethod::where('id', $id)
-        ->where('user_id', auth()->id()) // Prevent deleting others' methods
+        ->where('user_id', auth()->id())
         ->firstOrFail();
 
-    // Delete it
     $paymentMethod->delete();
 
     return response()->json([
         'message' => 'Payment method deleted successfully.'
     ]);
 }
-
-
 }
